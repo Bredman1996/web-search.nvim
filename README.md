@@ -1,31 +1,50 @@
 # web-search.nvim
-This plugin is mostly just my first attempt at writing a plugin. 
 
-The main purpose of this is to make searching while developing easier. Rather than having to open a browser and type out a search, this plugin does that for you. As an extension of this, it can also attempt to open directly to Terraform docs. 
+A Neovim plugin that simplifies web searching during development. Instead of manually opening a browser and typing searches, this plugin handles it for you. It also includes special support for opening Terraform documentation directly.
 
-## Opts
-When opening to a resource/data-source's documentation in the terraform registry, you need to know the `source` for the provider, i.e. `hashicorp/aws`. By default this plugin has the sources for the aws and azurerm providers. These providers are always included in the list, though the source value can be overridden. 
+## Features
 
-Opts example:
+- Quick web search from Neovim
+- Search selected text directly
+- Direct links to Terraform registry documentation
+
+## Configuration
+
+### Provider Source Maps
+
+When opening Terraform resource or data-source documentation, the plugin needs to know the provider source (e.g., `hashicorp/aws`). By default, the plugin includes sources for:
+- `aws` → `hashicorp/aws`
+- `azurerm` → `hashicorp/azurerm`
+
+These providers are always included, but their source values can be overridden. You can add additional providers via the `sourceMaps` option.
+
+**Example configuration:**
+
 ```lua
-{
+require('web-search').setup({
     sourceMaps = {
         { name = "cloudflare", source = "cloudflare/cloudflare" },
     },
-}
+})
 ```
 
 ## Commands
 
-### :WebSearch
-This opens a prompt and upon the user pressing `ENTER` will open a browser to google with the text entered supplied as the query. 
+### `:WebSearch`
 
-### :WebSearchSelection
-This opens a browser to google with the selected text supplied as the query
+Opens an input prompt. After entering your search query and pressing `ENTER`, it opens your browser to Google with the entered text as the search query.
 
-### :WebSearchTerraform
-This attempts to open a browser to the terraform registry documentation for the highlighted resource/data. 
+### `:WebSearchSelection`
 
-For example, if you have an `aws_s3_bucket` resource selected, then a browser will be opened to https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/s3_bucket
+Opens your browser to Google with the currently selected/visual text as the search query.
 
-To appropriately build the url for this, you must ensure that the provider source is specified in the sourceMaps, as shown above.
+### `:WebSearchTerraform`
+
+Attempts to open your browser directly to the Terraform registry documentation for the highlighted resource or data source.
+
+**Example:** If you have `aws_s3_bucket` selected, it will open:
+```
+https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/s3_bucket
+```
+
+**Note:** To use this command, ensure the provider source is specified in your `sourceMaps` configuration (see Configuration section above).
