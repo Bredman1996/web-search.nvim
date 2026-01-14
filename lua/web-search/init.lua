@@ -1,7 +1,5 @@
 local M = {}
 
-require("web-search.commands")
-
 local defaultMaps = {
 	{ name = "aws", source = "hashicorp/aws" },
 	{ name = "azure", source = "hashicorp/azure" },
@@ -32,6 +30,7 @@ function M.setup(opts)
 	end
 
 	require("web-search.core").init(opts)
+	require("web-search.commands")
 end
 
 return M
