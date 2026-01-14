@@ -46,10 +46,6 @@ function M.init(opts)
 	vim.api.nvim_create_user_command("WebSearchSearch", function()
 		M.generic_search()
 	end, {})
-
-	vim.keymap.set("n", "<leader>wS", M.generic_search, { desc = "WebSearch Prompt" })
-	vim.keymap.set("v", "<leader>wS", M.search_highlighted, { desc = "WebSearch Search Highlighted" })
-	vim.keymap.set("v", "<leader>wt", M.search_tf, { desc = "WebSearch Search Terraform" })
 end
 
 local terraformObjectTypes = { "resource", "data" }
