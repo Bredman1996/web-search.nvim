@@ -8,6 +8,40 @@ A Neovim plugin that simplifies web searching during development. Instead of man
 - Search selected text directly
 - Direct links to Terraform registry documentation
 
+## Installation
+
+### Lazy.nvim
+
+```lua
+{
+  'bredman1996/web-search.nvim',
+  config = function()
+    vim.keymap.set('n', '<leader>wS', '<cmd>WebSearch<CR>', { desc = 'WebSearch Prompt' })
+    vim.keymap.set('v', '<leader>wS', '<cmd>WebSearchSelection<CR>', { desc = 'WebSearch Search Highlighted' })
+    vim.keymap.set('v', '<leader>wt', '<cmd>WebSearchTerraform<CR>', { desc = 'WebSearch Search Terraform' })
+  end,
+  opts = {
+    sourceMaps = {},
+  },
+}
+```
+
+### Packer
+
+```lua
+use({
+  'bredman1996/web-search.nvim',
+  config = function()
+    require('web-search').setup({
+      sourceMaps = {},
+    })
+    vim.keymap.set('n', '<leader>wS', '<cmd>WebSearch<CR>', { desc = 'WebSearch Prompt' })
+    vim.keymap.set('v', '<leader>wS', '<cmd>WebSearchSelection<CR>', { desc = 'WebSearch Search Highlighted' })
+    vim.keymap.set('v', '<leader>wt', '<cmd>WebSearchTerraform<CR>', { desc = 'WebSearch Search Terraform' })
+  end,
+})
+```
+
 ## Configuration
 
 ### Provider Source Maps
