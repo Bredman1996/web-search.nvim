@@ -15,6 +15,7 @@ local function has_item(maps, name)
 end
 
 function M.setup(opts)
+	require("web-search.commands")
 	if not opts then
 		opts = {}
 	end
