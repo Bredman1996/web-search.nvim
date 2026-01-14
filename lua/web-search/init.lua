@@ -1,5 +1,7 @@
 local M = {}
 
+require("web-search.commands")
+
 local defaultMaps = {
 	{ name = "aws", source = "hashicorp/aws" },
 	{ name = "azure", source = "hashicorp/azure" },
