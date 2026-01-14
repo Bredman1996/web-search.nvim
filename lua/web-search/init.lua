@@ -30,7 +30,6 @@ function M.setup(opts)
 	end
 
 	require("web-search.core").init(opts)
-	require("web-search.commands")
 end
 
 return M
