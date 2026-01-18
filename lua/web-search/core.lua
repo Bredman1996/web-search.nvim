@@ -15,11 +15,11 @@ local objectTypeMaps = {
 }
 
 local function open_browser(target)
-	if not browserArguments then
-		vim.system({ browserCommand, table.unpack(browserArguments), target })
+	if browserArguments then
 		return
 	end
-	vim.system({ browserCommand, target })
+	vim.system({ browserCommand, table.unpack(browserArguments), target })
+	-- vim.system({ browserCommand, target })
 end
 
 local function search_google(text)
