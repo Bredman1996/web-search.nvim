@@ -15,8 +15,8 @@ local objectTypeMaps = {
 }
 
 local function open_browser(target)
-	vim.system({ browserCommand, table.unpack(browserArguments), target })
-	-- vim.system({ browserCommand, target })
+	vim.system({ browserCommand, unpack(browserArguments), target })
+	vim.system({ browserCommand, target })
 end
 
 local function search_google(text)
