@@ -15,9 +15,6 @@ local objectTypeMaps = {
 }
 
 local function open_browser(target)
-	if browserArguments then
-		return
-	end
 	vim.system({ browserCommand, table.unpack(browserArguments), target })
 	-- vim.system({ browserCommand, target })
 end
