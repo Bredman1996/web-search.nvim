@@ -49,6 +49,7 @@ local function split(inputstr, sep)
 end
 
 function M.init(opts)
+	vim.notify("opts in init = " .. vim.inspect(opts), vim.log.levels.INFO)
 	sourceMaps = opts.sourceMaps
 	browserCommand = opts.browserCommand
 	browserArguments = opts.browserArguments
