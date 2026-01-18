@@ -31,16 +31,12 @@ function M.setup(opts)
 	end
 
 	if not opts.browserCommand then
-		vim.notify("Setting opts.browserCommand", vim.log.levels.INFO)
-		opts.browserCommmand = "xdg-open"
+		opts.browserCommand = "xdg-open"
 	end
 
 	if not opts.browserArguments then
 		opts.browserArguments = {}
 	end
-
-	local msg = string.format("command: %s", opts.browserCommand)
-	vim.notify(msg, vim.log.levels.INFO)
 
 	require("web-search.core").init(opts)
 end
