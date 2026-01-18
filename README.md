@@ -53,7 +53,7 @@ use({
 
 When opening Terraform resource or data-source documentation, the plugin needs to know the provider source (e.g., `hashicorp/aws`). By default, the plugin includes sources for:
 - `aws` → `hashicorp/aws`
-- `azurerm` → `hashicorp/azurerm`
+- `azure` → `hashicorp/azurerm`
 
 These providers are always included, but their source values can be overridden. You can add additional providers via the `sourceMaps` option.
 
