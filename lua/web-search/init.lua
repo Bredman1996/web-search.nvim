@@ -30,6 +30,14 @@ function M.setup(opts)
 		end
 	end
 
+	if not opts.browserCommand then
+		opts.browserCommmand = "xdg-open"
+	end
+
+	if not opts.browserArguments then
+		opts.browserArguments = {}
+	end
+
 	require("web-search.core").init(opts)
 end
 

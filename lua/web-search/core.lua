@@ -1,6 +1,8 @@
 local M = {}
 
 local sourceMaps = {}
+local browserCommand = "xdg-open"
+local browserArguments = {}
 
 local state = {
 	win = nil,
@@ -14,7 +16,7 @@ local objectTypeMaps = {
 
 local function search_google(text)
 	local target = string.format("https://www.google.com?q=%s", text)
-	vim.system({ "xdg-open", target })
+	vim.system({ browserCommand, table.unpack(browserArguments), target })
 end
 
 local function get_highlighted_text()
@@ -43,9 +45,8 @@ end
 
 function M.init(opts)
 	sourceMaps = opts.sourceMaps
-	vim.api.nvim_create_user_command("WebSearchSearch", function()
-		M.generic_search()
-	end, {})
+	browserCommand = opts.browserCommand
+	browserArguments = opts.browserArguments
 end
 
 local terraformObjectTypes = { "resource", "data" }
