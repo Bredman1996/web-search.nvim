@@ -14,9 +14,17 @@ local objectTypeMaps = {
 	data = "data-sources",
 }
 
+local function open_browser(target)
+	if not browserArguments then
+		vim.system({ browserCommand, table.unpack(browserArguments), target })
+		return
+	end
+	vim.system({ browserCommand, target })
+end
+
 local function search_google(text)
 	local target = string.format("https://www.google.com?q=%s", text)
-	vim.system({ browserCommand, table.unpack(browserArguments), target })
+	open_browser(target)
 end
 
 local function get_highlighted_text()
@@ -132,7 +140,7 @@ function M.search_tf()
 
 	local target =
 		string.format("https://registry.terraform.io/providers/%s/latest/docs/%s/%s", source, resourceType, resource)
-	vim.system({ "xdg-open", target })
+	open_browser(target)
 end
 
 function M.search_highlighted()
