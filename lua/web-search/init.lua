@@ -38,7 +38,8 @@ function M.setup(opts)
 		opts.browserArguments = {}
 	end
 
-	vim.notify("argument" + opts.browserCommand, vim.log.levels.INFO)
+	local msg = string.format("command: %s", opts.browserCommand)
+	vim.notify(msg, vim.log.levels.INFO)
 
 	require("web-search.core").init(opts)
 end
