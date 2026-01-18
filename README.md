@@ -16,12 +16,15 @@ A Neovim plugin that simplifies web searching during development. Instead of man
 {
   'bredman1996/web-search.nvim',
   config = function()
+    require('web-search').setup({
+        sourceMaps = {},
+        browserCommand = 'chromium',
+        browserArguments = {},
+    })
     vim.keymap.set('n', '<leader>wS', '<cmd>WebSearch<CR>', { desc = 'WebSearch Prompt' })
     vim.keymap.set('v', '<leader>wS', '<cmd>WebSearchSelection<CR>', { desc = 'WebSearch Search Highlighted' })
     vim.keymap.set('v', '<leader>wt', '<cmd>WebSearchTerraform<CR>', { desc = 'WebSearch Search Terraform' })
   end,
-  opts = {
-    sourceMaps = {},
   },
 }
 ```
@@ -34,6 +37,8 @@ use({
   config = function()
     require('web-search').setup({
       sourceMaps = {},
+      browserCommand = 'chromium',
+      browserArguments = {},
     })
     vim.keymap.set('n', '<leader>wS', '<cmd>WebSearch<CR>', { desc = 'WebSearch Prompt' })
     vim.keymap.set('v', '<leader>wS', '<cmd>WebSearchSelection<CR>', { desc = 'WebSearch Search Highlighted' })
@@ -61,6 +66,12 @@ require('web-search').setup({
     },
 })
 ```
+
+### Browser Command
+By default the plugin uses `xdg-open`, this can be overridden by specifying the `browserCommand` configuration option. 
+
+### Browser Arguments
+If you need to send any custom arguments when opening the browser use the `browserArguments` option.
 
 ## Commands
 
