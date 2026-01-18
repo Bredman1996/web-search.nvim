@@ -31,6 +31,7 @@ function M.setup(opts)
 	end
 
 	if not opts.browserCommand then
+		vim.notify("Setting opts.browserCommand", vim.log.levels.INFO)
 		opts.browserCommmand = "xdg-open"
 	end
 
