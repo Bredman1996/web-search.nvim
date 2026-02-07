@@ -11,3 +11,7 @@ end, {})
 vim.api.nvim_create_user_command("WebSearchTerraform", function()
 	core.search_tf()
 end, {})
+
+vim.api.nvim_create_user_command("WebSearchAdo", function()
+	core.search_ado()
+end, {})

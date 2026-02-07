@@ -88,6 +88,36 @@ function M.search_current_buffer(text)
 	return matches
 end
 
+function M.search_ado()
+	local text = get_highlighted_text()
+	if not text then
+		vim.notify("Couldn't get highlighted text", vim.log.levels.ERROR)
+		return
+	end
+
+	local search = text:match('^"(.*)"$') or text
+
+	-- https://learn.microsoft.com/en-us/azure/devops/pipelines/tasks/reference/azure-cli-v2?view=azure-pipelines
+	local splitText = split(search, "@")
+
+	if #splitText ~= 2 then
+		local msg = string.format(
+			"'%s' is not a valid Azure Devops task, highlighted text must be in the format of {TaskName}@{TaskVersion}. Example: AzureCLI@2",
+			search
+		)
+		vim.notify(msg, vim.log.levels.WARN)
+		return
+	end
+
+	local resource = splitText[1]:gsub("([a-z%d])([A-Z])", "%1-%2")
+	local target = string.format(
+		"https://learn.microsoft.com/en-us/azure/devops/pipelines/tasks/reference/%s-v%s",
+		resource,
+		splitText[2]
+	)
+	open_browser(target)
+end
+
 function M.search_tf()
 	local text = get_highlighted_text()
 	if not text then

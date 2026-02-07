@@ -1,12 +1,13 @@
 # web-search.nvim
 
-A Neovim plugin that simplifies web searching during development. Instead of manually opening a browser and typing searches, this plugin handles it for you. It also includes special support for opening Terraform documentation directly.
+A Neovim plugin that simplifies web searching during development. Instead of manually opening a browser and typing searches, this plugin handles it for you. It also includes special support for opening Terraform documentation directly and Azure DevOps task documentation.
 
 ## Features
 
 - Quick web search from Neovim
 - Search selected text directly
 - Direct links to Terraform registry documentation
+- Direct links to Azure DevOps pipeline task documentation
 
 ## Installation
 
@@ -24,6 +25,7 @@ A Neovim plugin that simplifies web searching during development. Instead of man
     vim.keymap.set('n', '<leader>wS', '<cmd>WebSearch<CR>', { desc = 'WebSearch Prompt' })
     vim.keymap.set('v', '<leader>wS', '<cmd>WebSearchSelection<CR>', { desc = 'WebSearch Search Highlighted' })
     vim.keymap.set('v', '<leader>wt', '<cmd>WebSearchTerraform<CR>', { desc = 'WebSearch Search Terraform' })
+    vim.keymap.set('v', '<leader>wa', '<cmd>WebSearchAdo<CR>', { desc = 'WebSearch Azure DevOps Task' })
   end,
   },
 }
@@ -43,6 +45,7 @@ use({
     vim.keymap.set('n', '<leader>wS', '<cmd>WebSearch<CR>', { desc = 'WebSearch Prompt' })
     vim.keymap.set('v', '<leader>wS', '<cmd>WebSearchSelection<CR>', { desc = 'WebSearch Search Highlighted' })
     vim.keymap.set('v', '<leader>wt', '<cmd>WebSearchTerraform<CR>', { desc = 'WebSearch Search Terraform' })
+    vim.keymap.set('v', '<leader>wa', '<cmd>WebSearchAdo<CR>', { desc = 'WebSearch Azure DevOps Task' })
   end,
 })
 ```
@@ -93,3 +96,14 @@ https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/s3_b
 ```
 
 **Note:** To use this command, ensure the provider source is specified in your `sourceMaps` configuration (see Configuration section above).
+
+### `:WebSearchAdo`
+
+Opens your browser directly to the Microsoft Learn documentation for the highlighted Azure DevOps pipeline task. The selected text must be in the format `{TaskName}@{TaskVersion}`.
+
+**Example:** If you have `AzureCLI@2` selected, it will open:
+```
+https://learn.microsoft.com/en-us/azure/devops/pipelines/tasks/reference/azure-cli-v2
+```
+
+**Note:** This command works in visual mode—highlight the task name and version (e.g., `Bash@3`, `Docker@2`) before running it.
