@@ -3,10 +3,17 @@ local M = {}
 local sourceMaps = {}
 local browserCommand = "xdg-open"
 local browserArguments = {}
+local defaultSearchEngine = "duckduckgo"
+local searchEngine
 
 local state = {
 	win = nil,
 	buf = nil,
+}
+
+local supportedSearchEngines = {
+	google = "https://www.google.com/search?q=",
+	duckduckgo = "https://www.duckduckgo.com?q=",
 }
 
 local objectTypeMaps = {
@@ -19,7 +26,7 @@ local function open_browser(target)
 end
 
 local function search_google(text)
-	local target = string.format("https://www.google.com/search?q=%s", text)
+	local target = supportedSearchEngines[searchEngine] .. text
 	open_browser(target)
 end
 
@@ -51,6 +58,15 @@ function M.init(opts)
 	sourceMaps = opts.sourceMaps
 	browserCommand = opts.browserCommand
 	browserArguments = opts.browserArguments
+
+	searchEngine = opts.searchEngine
+	if not supportedSearchEngines[searchEngine] then
+		vim.notify(
+			"WebSearch: " .. searchEngine .. " is not a supported search engine, defaulting to " .. defaultSearchEngine,
+			vim.log.levels.ERROR
+		)
+		searchEngine = defaultSearchEngine
+	end
 end
 
 local terraformObjectTypes = { "resource", "data" }

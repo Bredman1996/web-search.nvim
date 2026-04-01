@@ -21,6 +21,7 @@ A Neovim plugin that simplifies web searching during development. Instead of man
         sourceMaps = {},
         browserCommand = 'chromium',
         browserArguments = {},
+        searchEngine = "duckduckgo"
     })
     vim.keymap.set('n', '<leader>wS', '<cmd>WebSearch<CR>', { desc = 'WebSearch Prompt' })
     vim.keymap.set('v', '<leader>wS', '<cmd>WebSearchSelection<CR>', { desc = 'WebSearch Search Highlighted' })
@@ -75,6 +76,9 @@ By default the plugin uses `xdg-open`, this can be overridden by specifying the 
 
 ### Browser Arguments
 If you need to send any custom arguments when opening the browser use the `browserArguments` option.
+
+### Search Engine
+You can specify the search engine used when doing a general web search. Currently only `google` and `duckduckgo` are supported options.
 
 ## Commands
 

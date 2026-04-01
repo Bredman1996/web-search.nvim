@@ -37,6 +37,10 @@ function M.setup(opts)
 		opts.browserArguments = {}
 	end
 
+	if not opts.searchEngine then
+		opts.searchEngine = "google"
+	end
+
 	require("web-search.core").init(opts)
 	require("web-search.commands")
 end
