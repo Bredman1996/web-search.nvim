@@ -19,7 +19,7 @@ local function open_browser(target)
 end
 
 local function search_google(text)
-	local target = string.format("https://www.google.com?q=%s", text)
+	local target = string.format("https://www.google.com/search?q=%s", text)
 	open_browser(target)
 end
 
