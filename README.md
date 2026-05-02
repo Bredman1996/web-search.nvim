@@ -1,12 +1,12 @@
 # web-search.nvim
 
-A Neovim plugin that simplifies web searching during development. Instead of manually opening a browser and typing searches, this plugin handles it for you. It also includes special support for opening Terraform documentation directly and Azure DevOps task documentation.
+A Neovim plugin that simplifies web searching during development. Instead of manually opening a browser and typing searches, this plugin handles it for you. It also includes special support for opening OpenTofu/Terraform provider documentation directly and Azure DevOps task documentation.
 
 ## Features
 
 - Quick web search from Neovim
 - Search selected text directly
-- Direct links to Terraform registry documentation
+- Direct links to OpenTofu registry documentation (with Terraform registry support)
 - Direct links to Azure DevOps pipeline task documentation
 
 ## Installation
@@ -21,7 +21,8 @@ A Neovim plugin that simplifies web searching during development. Instead of man
         sourceMaps = {},
         browserCommand = 'chromium',
         browserArguments = {},
-        searchEngine = "duckduckgo"
+        searchEngine = "duckduckgo",
+        tfRegistry = "opentofu"
     })
     vim.keymap.set('n', '<leader>wS', '<cmd>WebSearch<CR>', { desc = 'WebSearch Prompt' })
     vim.keymap.set('v', '<leader>wS', '<cmd>WebSearchSelection<CR>', { desc = 'WebSearch Search Highlighted' })
@@ -42,6 +43,7 @@ use({
       sourceMaps = {},
       browserCommand = 'chromium',
       browserArguments = {},
+      tfRegistry = "opentofu",
     })
     vim.keymap.set('n', '<leader>wS', '<cmd>WebSearch<CR>', { desc = 'WebSearch Prompt' })
     vim.keymap.set('v', '<leader>wS', '<cmd>WebSearchSelection<CR>', { desc = 'WebSearch Search Highlighted' })
@@ -55,7 +57,7 @@ use({
 
 ### Provider Source Maps
 
-When opening Terraform resource or data-source documentation, the plugin needs to know the provider source (e.g., `hashicorp/aws`). By default, the plugin includes sources for:
+When opening OpenTofu/Terraform resource or data-source documentation, the plugin needs to know the provider source (e.g., `hashicorp/aws`). By default, the plugin includes sources for:
 - `aws` → `hashicorp/aws`
 - `azure` → `hashicorp/azurerm`
 
@@ -79,6 +81,10 @@ If you need to send any custom arguments when opening the browser use the `brows
 
 ### Search Engine
 You can specify the search engine used when doing a general web search. Currently only `google` and `duckduckgo` are supported options.
+### Terraform Docs Registry
+You can choose where `:WebSearchTerraform` opens provider docs using the `tfRegistry` option.
+- `opentofu` (default) uses `search.opentofu.org`
+- `terraform` uses `registry.terraform.io`
 
 ## Commands
 
@@ -92,14 +98,15 @@ Opens your browser to Google with the currently selected/visual text as the sear
 
 ### `:WebSearchTerraform`
 
-Attempts to open your browser directly to the Terraform registry documentation for the highlighted resource or data source.
+Attempts to open your browser directly to provider documentation for the highlighted resource or data source.
+By default this command opens OpenTofu registry docs.
 
 **Example:** If you have `aws_s3_bucket` selected, it will open:
 ```
-https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/s3_bucket
+https://search.opentofu.org/provider/hashicorp/aws/latest/docs/resources/s3_bucket
 ```
 
-**Note:** To use this command, ensure the provider source is specified in your `sourceMaps` configuration (see Configuration section above).
+**Note:** To use this command, ensure the provider source is specified in your `sourceMaps` configuration (see Configuration section above). Set `tfRegistry = "terraform"` if you prefer Terraform registry URLs.
 
 ### `:WebSearchAdo`
 

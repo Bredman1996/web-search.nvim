@@ -5,6 +5,8 @@ local browserCommand = "xdg-open"
 local browserArguments = {}
 local defaultSearchEngine = "duckduckgo"
 local searchEngine
+local defaultTfRegistry = "opentofu"
+local tfRegistry
 
 local state = {
 	win = nil,
@@ -14,6 +16,11 @@ local state = {
 local supportedSearchEngines = {
 	google = "https://www.google.com/search?q=",
 	duckduckgo = "https://www.duckduckgo.com?q=",
+}
+
+local supportedTfRegistries = {
+	opentofu = "https://search.opentofu.org/provider/%s/latest/docs/%s/%s",
+	terraform = "https://registry.terraform.io/providers/%s/latest/docs/%s/%s",
 }
 
 local objectTypeMaps = {
@@ -66,6 +73,15 @@ function M.init(opts)
 			vim.log.levels.ERROR
 		)
 		searchEngine = defaultSearchEngine
+	end
+
+	tfRegistry = opts.tfRegistry
+	if not supportedTfRegistries[tfRegistry] then
+		vim.notify(
+			"WebSearch: " .. tfRegistry .. " is not a supported Terraform docs registry, defaulting to " .. defaultTfRegistry,
+			vim.log.levels.ERROR
+		)
+		tfRegistry = defaultTfRegistry
 	end
 end
 
@@ -180,8 +196,7 @@ function M.search_tf()
 
 	local resource = table.concat(splitText, "_")
 
-	local target =
-		string.format("https://registry.terraform.io/providers/%s/latest/docs/%s/%s", source, resourceType, resource)
+	local target = string.format(supportedTfRegistries[tfRegistry], source, resourceType, resource)
 	open_browser(target)
 end
 

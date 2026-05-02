@@ -41,6 +41,10 @@ function M.setup(opts)
 		opts.searchEngine = "google"
 	end
 
+	if not opts.tfRegistry then
+		opts.tfRegistry = "opentofu"
+	end
+
 	require("web-search.core").init(opts)
 	require("web-search.commands")
 end
